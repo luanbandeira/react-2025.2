@@ -4,19 +4,12 @@ const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default function Keyboard({ disabled, used, onGuess }) {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(13, 1fr)",
-        gap: 8,
-        maxWidth: 650,
-      }}
-    >
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(13, 1fr)", gap: 8, maxWidth: 650 }}>
       {LETTERS.map((L) => {
         const isUsed = used.has(L);
         return (
           <button
-            type="button"           
+            type="button"
             key={L}
             disabled={disabled || isUsed}
             onClick={() => onGuess(L)}
