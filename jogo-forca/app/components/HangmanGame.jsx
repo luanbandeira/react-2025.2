@@ -6,10 +6,10 @@ import WordDisplay from "./WordDisplay";
 import Keyboard from "./Keyboard";
 import HangmanFigure from "./HangmanFigure";
 import Attempts from "./Attempts";
+import InputGuess from "./InputGuess";
 
 const MAX_ERRORS = 6;
 
-// Normaliza qualquer palavra para o formato do jogo (MAIÚSCULO, sem acento, só A–Z)
 function normalize(word) {
   return word
     .toUpperCase()
@@ -22,13 +22,11 @@ function randomWord() {
 }
 
 export default function HangmanGame() {
-  // ---------- STATES (ficam só aqui no pai) ----------
-  const [target, setTarget] = useState("");     // palavra sorteada
-  const [guessed, setGuessed] = useState(new Set()); // letras tentadas
-  const [errors, setErrors] = useState(0);      // tentativas erradas
+  const [target, setTarget] = useState("");
+  const [guessed, setGuessed] = useState(new Set());
+  const [errors, setErrors] = useState(0);
   const [status, setStatus] = useState("playing"); // "playing" | "won" | "lost"
 
-  // inicia 1a partida
   useEffect(() => { newGame(); }, []);
 
   function newGame() {
@@ -38,13 +36,12 @@ export default function HangmanGame() {
     setStatus("playing");
   }
 
-  // ação de palpite (filho → pai via prop onGuess)
   function handleGuess(letter) {
     if (status !== "playing") return;
     if (!/^[A-Z]$/.test(letter)) return;
 
     setGuessed(prev => {
-      if (prev.has(letter)) return prev; // ignora repetição
+      if (prev.has(letter)) return prev;
       const next = new Set(prev);
       next.add(letter);
       if (!target.includes(letter)) setErrors(e => e + 1);
@@ -52,7 +49,17 @@ export default function HangmanGame() {
     });
   }
 
-  // letras corretas e erradas (derivadas do estado)
+  // teclado físico
+  useEffect(() => {
+    const onKey = (e) => {
+      const L = (e.key || "").toUpperCase();
+      if (/^[A-Z]$/.test(L)) handleGuess(L);
+      if (e.key === "Enter" && status !== "playing") newGame();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [status, target]);
+
   const correct = useMemo(
     () => new Set([...guessed].filter(L => target.includes(L))),
     [guessed, target]
@@ -62,7 +69,6 @@ export default function HangmanGame() {
     [guessed, target]
   );
 
-  // verifica vitória/derrota
   useEffect(() => {
     if (!target) return;
     const allRevealed = target.split("").every(ch => guessed.has(ch));
@@ -70,40 +76,32 @@ export default function HangmanGame() {
     else if (errors >= MAX_ERRORS) setStatus("lost");
   }, [guessed, errors, target]);
 
-  const used = guessed;
   const remaining = MAX_ERRORS - errors;
 
   return (
-    <div style={{ display: "grid", gap: 16, placeItems: "center" }}>
+    <div className="container">
       <h1>Jogo da Forca</h1>
 
       <HangmanFigure wrong={errors} />
+
       <WordDisplay word={target} guessed={guessed} />
+
       <Attempts correct={correct} wrong={wrong} />
 
-      <div style={{ fontFamily: "monospace" }}>
-        Tentativas restantes: <b>{remaining}</b>
-      </div>
+      <div className="remaining">Tentativas restantes: <b>{remaining}</b></div>
 
-      <Keyboard disabled={status !== "playing"} used={used} onGuess={handleGuess} />
+      <InputGuess disabled={status !== "playing"} onSubmit={handleGuess} />
+
+      <Keyboard disabled={status !== "playing"} used={guessed} onGuess={handleGuess} />
 
       {status !== "playing" && (
-        <div
-          role="status"
-          style={{
-            marginTop: 8,
-            color: status === "won" ? "green" : "crimson",
-            fontWeight: 600
-          }}
-        >
+        <div role="status" className={`result ${status}`}>
           {status === "won" ? "Parabéns! Você venceu! 🎉" : "Que pena! Você perdeu. 😵"}&nbsp;
           A palavra era <b>{target}</b>.
         </div>
       )}
 
-      <button onClick={newGame} style={{ marginTop: 8, padding: "8px 12px" }}>
-        Reiniciar
-      </button>
+      <button onClick={newGame} className="btn secondary">Reiniciar</button>
     </div>
   );
 }
