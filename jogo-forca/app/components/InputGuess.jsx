@@ -21,7 +21,7 @@ export default function InputGuess({ disabled, onSubmit, onEnterRestart }) {
     
     if (e.key === "Enter") return; 
 
-    // Se digitar uma letra A–Z, envia imediatamente (opcional)
+    
     const L = (e.key || "").toUpperCase();
     if (/^[A-Z]$/.test(L)) {
       e.preventDefault();       
