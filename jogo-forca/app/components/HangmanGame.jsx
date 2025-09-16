@@ -10,7 +10,7 @@ import InputGuess from "./InputGuess";
 
 const MAX_ERRORS = 6;
 
-// normaliza palavra para o jogo
+
 function normalize(word) {
   return word
     .toUpperCase()
@@ -25,10 +25,10 @@ function randomWord() {
 
 export default function HangmanGame() {
   const [target, setTarget] = useState("");
-  const [guessed, setGuessed] = useState(new Set()); // letras tentadas
-  const [status, setStatus] = useState("playing");   // "playing" | "won" | "lost"
+  const [guessed, setGuessed] = useState(new Set()); 
+  const [status, setStatus] = useState("playing");   
 
-  // inicializa
+ 
   useEffect(() => { newGame(); }, []);
 
   function newGame() {
@@ -37,7 +37,7 @@ export default function HangmanGame() {
     setStatus("playing");
   }
 
-  // registra palpite (sem mexer em contador de erros!)
+  
   function handleGuess(raw) {
     if (status !== "playing") return;
     const letter = (raw || "").toUpperCase();
@@ -51,7 +51,7 @@ export default function HangmanGame() {
     });
   }
 
-  // derivar corretas/erradas a partir de `guessed` + `target`
+  
   const correct = useMemo(
     () => new Set([...guessed].filter(L => target.includes(L))),
     [guessed, target]
@@ -61,11 +61,11 @@ export default function HangmanGame() {
     [guessed, target]
   );
 
-  // ⚠️ AQUI está o "novo setErrors": é derivado!
+  
   const errors = wrong.size;
   const remaining = MAX_ERRORS - errors;
 
-  // checa vitória/derrota quando algo muda
+  
   useEffect(() => {
     if (!target) return;
     const allRevealed = target.split("").every(ch => guessed.has(ch));
@@ -85,17 +85,17 @@ export default function HangmanGame() {
 
       <div className="remaining">Tentativas restantes: <b>{remaining}</b></div>
 
-      {/* Entrada via input (teclado físico tratado aqui) */}
+      
       <InputGuess
         disabled={status !== "playing"}
         onSubmit={handleGuess}
         onEnterRestart={() => status !== "playing" && newGame()}
       />
 
-      {/* Teclado virtual */}
+      
       <Keyboard disabled={status !== "playing"} used={guessed} onGuess={handleGuess} />
 
-      {/* Mensagem final */}
+      
       {status !== "playing" && (
         <div role="status" className={`result ${status}`}>
           {status === "won" ? "Parabéns! Você venceu! 🎉" : "Que pena! Você perdeu. 😵"}{" "}
