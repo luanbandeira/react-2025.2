@@ -7,7 +7,7 @@ export default function InputGuess({ disabled, onSubmit, onEnterRestart }) {
   function submitLetter(L) {
     const letter = (L || "").toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     if (letter && /^[A-Z]$/.test(letter[0])) {
-      onSubmit(letter[0]);      // chama o pai UMA única vez
+      onSubmit(letter[0]);      
       setValue("");
     }
   }
@@ -18,17 +18,17 @@ export default function InputGuess({ disabled, onSubmit, onEnterRestart }) {
   }
 
   function handleKeyDown(e) {
-    // Enter envia o que estiver no input
-    if (e.key === "Enter") return; // submit já cuida
+    
+    if (e.key === "Enter") return; 
 
     // Se digitar uma letra A–Z, envia imediatamente (opcional)
     const L = (e.key || "").toUpperCase();
     if (/^[A-Z]$/.test(L)) {
-      e.preventDefault();       // impede caracteres extra no input
+      e.preventDefault();       
       submitLetter(L);
     }
 
-    // Enter para reiniciar quando desabilitado
+    
     if (e.key === "Enter" && disabled && typeof onEnterRestart === "function") {
       onEnterRestart();
     }
