@@ -1,7 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function NavBar(){
+export default function NavBar() {
   const pathname = usePathname();
   const links = [
     { href: "/", label: "Home" },
@@ -14,7 +16,11 @@ export default function NavBar(){
   return (
     <nav className="nav">
       {links.map(l => (
-        <Link key={l.href} href={l.href} className={pathname === l.href ? "active" : ""}>
+        <Link
+          key={l.href}
+          href={l.href}
+          className={pathname === l.href ? "active" : ""}
+        >
           {l.label}
         </Link>
       ))}
