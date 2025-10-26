@@ -1,18 +1,28 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-import Header from "@/components/Header";
 import Profile from "@/components/Profile";
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      <h1>SITE CRIADO PARA DISCIPLINA PROGRAMAÇAO FRONT-END</h1>
-       
-       <main>
-        
-       <Profile />
+import Section from "@/components/Section";
 
-       </main>
-      
-    </div>
+export default function Home(){
+  return (
+    <>
+      <Profile
+        name="Luan Bandeira"
+        photo="ex02-next/ex-02/public/profile.png"
+        bioLines={[
+          "Entusiasta de tecnologia e finanças descentralizadas.",
+          "Explorando como o Bitcoin pode mudar o mundo.",
+          "Acredito em liberdade e inovação digital."
+        ]}
+      />
+
+      <Section title="Destaques" subtitle="Alguns tópicos que curto estudar e construir">
+        <div className="stack">
+          <span className="badge">React</span>
+          <span className="badge">Next.js</span>
+          <span className="badge">Java</span>
+          <span className="badge">Redes</span>
+          <span className="badge">Bitcoin</span>
+        </div>
+      </Section>
+    </>
   );
 }
