@@ -35,3 +35,10 @@ main{ max-width:1100px; margin:0 auto; padding:24px; }
 .timeline{ border-left:2px solid var(--border); padding-left:16px; display:grid; gap:18px; }
 .tl-item .dot{ width:10px; height:10px; background:var(--brand); border-radius:50%; position:absolute; left:-6px; top:6px; }
 .tl-item{ position:relative; }
+
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 8px;
+}

@@ -1,4 +1,4 @@
-export default function Section({ title, subtitle, children }){
+export default function Section({ title, subtitle, children }) {
   return (
     <section className="container" style={{ marginTop: 18 }}>
       {title && <h2 className="h2">{title}</h2>}

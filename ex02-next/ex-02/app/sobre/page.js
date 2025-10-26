@@ -1,6 +1,9 @@
-import Section from "@/components/Section";
+import Section from "../../components/Section";
+import { profile } from "../../data/profile";
 
-export default function Sobre(){
+export const metadata = { title: "Sobre — Luan Bandeira" };
+
+export default function Sobre() {
   return (
     <>
       <Section title="Sobre mim" subtitle="Tecnologias / módulos utilizados neste app">
@@ -10,16 +13,26 @@ export default function Sobre(){
             <ul className="muted">
               <li>Next.js (App Router)</li>
               <li>React 18</li>
-              <li>CSS global simples (pode evoluir para Tailwind)</li>
-              <li>Fetch em Server Component (projetos)</li>
+              <li>CSS global (custom)</li>
+              <li>Integração com API pública (GitHub)</li>
             </ul>
           </div>
+
           <div className="card">
-            <strong>Boas práticas</strong>
+            <strong>Minhas áreas</strong>
+            <div className="stack" style={{ marginTop: 8 }}>
+              {profile.stack.map((s) => (
+                <span key={s} className="badge">{s}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="card">
+            <strong>Links</strong>
             <ul className="muted">
-              <li>Componentização (Profile, Section, TimelineItem)</li>
-              <li>Rotas semânticas</li>
-              <li>Revalidação de dados (ISR)</li>
+              <li><a href={profile.socials.github} target="_blank">GitHub</a></li>
+              <li><a href={profile.socials.linkedin} target="_blank">LinkedIn</a></li>
+              <li><a href={profile.socials.instagram} target="_blank">Instagram</a></li>
             </ul>
           </div>
         </div>
