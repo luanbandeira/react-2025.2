@@ -7,10 +7,10 @@ export const profile = {
     "Explorando como o Bitcoin pode mudar o mundo.",
     "Acredito em liberdade e inovação digital."
   ],
-  stack: ["React", "Next.js", "Java", "Redes", "Bitcoin"],
+  stack: ["IA", "Python", "Java", "Redes", "Bitcoin"],
   socials: {
     github: "https://github.com/luanbandeira",
-    linkedin: "https://www.linkedin.com/in/seu-usuario",
-    instagram: "https://instagram.com/seu-usuario"
+    linkedin: "https://www.linkedin.com/in/luan-bandeira-de-melo-305801309/",
+    instagram: "https://www.instagram.com/snug_buck/"
   }
 };

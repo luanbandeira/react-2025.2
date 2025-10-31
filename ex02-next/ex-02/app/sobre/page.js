@@ -12,8 +12,8 @@ export default function Sobre() {
             <strong>Stack do App</strong>
             <ul className="muted">
               <li>Next.js (App Router)</li>
-              <li>React 18</li>
-              <li>CSS global (custom)</li>
+              <li>React</li>
+              <li>CSS global</li>
               <li>Integração com API pública (GitHub)</li>
             </ul>
           </div>
@@ -28,11 +28,11 @@ export default function Sobre() {
           </div>
 
           <div className="card">
-            <strong>Links</strong>
+            <strong>O que é Bitcoin?</strong>
             <ul className="muted">
-              <li><a href={profile.socials.github} target="_blank">GitHub</a></li>
-              <li><a href={profile.socials.linkedin} target="_blank">LinkedIn</a></li>
-              <li><a href={profile.socials.instagram} target="_blank">Instagram</a></li>
+              <li><a href="Bitcoin: Um Sistema de Dinheiro Eletrônico Peer-to-Peer" target="_blank">Estude Bitcoin</a></li>
+              <li><a href="https://bitcoin.org/en/getting-started" target="_blank">Pode começar a aprender por aqui</a></li>
+              <li><a href="https://bitcoin.org/en/getting-started" target="_blank">@snug_buck</a></li>
             </ul>
           </div>
         </div>
@@ -40,3 +40,4 @@ export default function Sobre() {
     </>
   );
 }
+
